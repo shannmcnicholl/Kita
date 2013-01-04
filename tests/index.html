@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kita Component Tests</title>
+
+	<script src="../libs/require.js"></script>
+	<link type="text/css" rel="stylesheet" href="libs/mocha.css" />
+	<script src="libs/mocha.js"></script>
+
+	<script>
+		mocha.setup("tdd");
+	</script>
+</head>
+<body>
+	<h1 id="top"><a href="" title="Kita Component Tests" onClick="window.location=location.pathname; return false;">Kita Component Tests</a></h1>
+	<div id="mocha"></div>
+
+	<script>
+		require.config({
+			paths: {
+				'kita':	'../src/',
+				'sinon': 'libs/sinon'
+			},
+			shim:  {
+				'sinon': {
+					exports: 'sinon'
+				}
+			}
+
+		});
+
+		require(
+			[
+				'pubsub.test'
+			], 
+			function() {
+				mocha.setup({
+					// These globals are via Sinons useFakeTimers function
+					globals:	["setTimeout", "setInterval", "clearTimeout", "clearInterval"]
+				})
+				var tests = mocha.run();
+			}
+		);
+	</script>
+
+	<a href="#top" title="back to the top">top</a>
+</body>
+</html>
