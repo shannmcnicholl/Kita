@@ -3,12 +3,13 @@
  *
  * pubsub.js
  *
- * The Kita pubSub library
+ * The pubSub library within the Kita JS framework
  *
  * Shann McNicholl (@shannmcnicholl)
  *
  * License Pending.
  */
+
 define(
 ['kita/utils'],
 function(Utils) {

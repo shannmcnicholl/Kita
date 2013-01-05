@@ -3,9 +3,9 @@
  *
  * pubsub.test.js
  *
- * Unit tests for the pubSub library within the Kita JS Framework.
+ * Unit tests for the pubSub library within the Kita JS Framework
  *
- * Shann McNicholl
+ * Shann McNicholl (@shannmcnicholl)
  *
  * License pending.
  */
