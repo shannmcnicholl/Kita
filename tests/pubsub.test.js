@@ -374,7 +374,7 @@ function(chai, sinon, pubSub) {
 				expect(callback.callCount).to.equal(30);
 			});
 
-			it("call 3 callbacks for the first even and 4 for the second", function() {
+			it("call 3 callbacks for the first event and 4 for the second", function() {
 				pubsub.on("click", callback);
 				pubsub.on("click", callback);
 				pubsub.on("click", callback);
@@ -395,6 +395,17 @@ function(chai, sinon, pubSub) {
 				clock.tick(10000);
 
 				expect(callback.callCount).to.equal(7);
+			});
+
+			it("return true and call the bound callback with 3 arguments", function() {
+				pubsub.on("click", callback);
+
+				expect(pubsub.trigger("click", 10, 50, 300)).to.be.true;
+
+				clock.tick(10000);
+
+				expect(callback.calledOnce).to.be.true;
+				expect(callback.calledWith(10, 50, 300)).to.be.true;
 			});
 		});
 	});
