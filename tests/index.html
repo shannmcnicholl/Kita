@@ -10,6 +10,11 @@
 	<script>
 		mocha.setup("tdd");
 	</script>
+	<style>
+		h1 a {
+			color:	#e89421;
+		}
+	</style>
 </head>
 <body>
 	<h1 id="top"><a href="" title="Kita Component Tests" onClick="window.location=location.pathname; return false;">Kita Component Tests</a></h1>
@@ -31,7 +36,8 @@
 
 		require(
 			[
-				'pubsub.test'
+				'pubsub.test',
+				'debug.test'
 			], 
 			function() {
 				mocha.setup({

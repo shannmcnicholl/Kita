@@ -125,10 +125,12 @@ function(Utils) {
 			return false;
 		}
 
+		// Loop through the listeners
 		for(i = 0, count = listeners.length; i < count; i++) {
-			if(typeof listeners[i] !== "object")	continue;
+			// We need a callback function
+			if(typeof listeners[i] !== "object" || typeof listeners[i].callback !== "function")	continue;
 
-			this._call(listeners[i].callback, args, listeners[i].context);
+			listeners[i].callback.apply(listeners[i].context, args);
 		}
 
 		return true;
@@ -154,18 +156,6 @@ function(Utils) {
 		return this._callbacksLength;
 	};
 	
-
-	/*
-	 * _call
-	 *
-	 */
-	pubSub.prototype._call = function _call(fn, args, context) {
-		setTimeout(function() {
-			fn.apply(context, args);
-		});
-
-		return true;
-	};
 
 	return pubSub;
 });
