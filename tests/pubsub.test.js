@@ -13,6 +13,7 @@
 define(
 ['libs/chai', 'sinon', 'kita/pubsub'],
 function(chai, sinon, pubSub) {
+	console.log(" - Running PubSub Test Suite");
 
 	var expect 	= chai.expect,
 		spy		= sinon.spy,
@@ -215,6 +216,17 @@ function(chai, sinon, pubSub) {
 
 				expect(pubsub.unbind("click", callback)).to.be.true;
 			});
+
+			it("have 0 callbacks bound", function() {
+				pubsub.on("click", callback);
+				expect(pubsub._callbacksLength).to.equal(1);
+
+				pubsub.off("click", callback);
+
+				expect(pubsub._callbacksLength).to.equal(0);
+				expect(Object.keys(pubsub._callbacks).length).to.equal(0);
+				expect(pubsub._callbacks).to.deep.equal({});
+			});
 		});
 
 		describe("off() should", function() {
@@ -308,7 +320,7 @@ function(chai, sinon, pubSub) {
 				expect(pubsub.trigger("click")).to.be.true;
 			});
 
-			it("return true and the callback should be called when an event that has a bound callback", function() {
+			it("return true and the callback should be called when an event has a bound callback", function() {
 				pubsub.on("click", callback);
 				expect(pubsub.trigger("click")).to.be.true;
 

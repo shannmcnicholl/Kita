@@ -36,14 +36,19 @@
 
 		require(
 			[
+				'kObject.test',
 				'pubsub.test',
-				'debug.test'
+				'is.test',
+				'model.test',
+				'controller.test',
+				'utilities/cookies.test'
 			], 
 			function() {
 				mocha.setup({
 					// These globals are via Sinons useFakeTimers function
 					globals:	["setTimeout", "setInterval", "clearTimeout", "clearInterval"]
-				})
+				});
+
 				var tests = mocha.run();
 			}
 		);

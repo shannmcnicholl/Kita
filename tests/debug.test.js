@@ -13,6 +13,7 @@
 define(
 ['libs/chai', 'sinon', 'kita/debug'],
 function(chai, sinon, debug) {
+	console.log("\n - Running Debug Test Suite");
 
 	var expect 	= chai.expect,
 		spy		= sinon.spy,
