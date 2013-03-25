@@ -7,5 +7,6 @@
  */
 define(
 ["./kita"], function(Kita) {
-	window.Kita	=	Kita;
+    // Make the Kita object global
+    this.Kita =   Kita;
 });

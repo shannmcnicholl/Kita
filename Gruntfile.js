@@ -60,11 +60,13 @@ module.exports = function(grunt) {
         requirejs: {
             compile: {
                 options: {
-                    name:                       "../libs/almond", // Path to almond requirejs production runner for built js
+                    name:                       "build", // Path to almond requirejs production runner for built js
                     baseUrl:                    "src",
-                    include:                    ["build"],
-                    insertRequire:              ["build"],
-                    wrap:                       true, // Wrap everything up in a closure
+                    include:                    ["../libs/almond"],
+                    wrap:                       {
+                        start:  "(function() {",
+                        end:    'require(["build"], null, null, true);}());' // Needed to ensure the require call is NOT async
+                    }, // Wrap everything up in a closure
                     generateSourceMaps:         true, // Experimental
                     preserveLicenseComments:    false, // Needs turned off for generateSourceMaps
                     optimize:                   "uglify2", // Supports generateSourceMaps

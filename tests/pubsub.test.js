@@ -118,6 +118,10 @@ function(chai, sinon, pubSub) {
 				expect(pubsub._callbacks["change"].length).to.equal(1);
 				expect(pubsub._callbacks["click"].length).to.equal(1);
 			});
+
+			it("should return false if a string based callback is provided but no context is given", function() {
+				expect(pubsub.bind("test", "runTestFunction")).to.be.false;
+			});
 		});
 
 		describe("on() should", function() {
@@ -418,6 +422,16 @@ function(chai, sinon, pubSub) {
 
 				expect(callback.calledOnce).to.be.true;
 				expect(callback.calledWith(10, 50, 300)).to.be.true;
+			});
+
+			it("return true and call the string based callback from the context given", function() {
+				pubsub.on("test", "runTest", { "runTest": callback });
+
+				expect(pubsub.trigger("test")).to.be.true;
+
+				clock.tick(10000);
+
+				expect(callback.calledOnce).to.be.true;
 			});
 		});
 	});

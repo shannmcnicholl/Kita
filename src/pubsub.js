@@ -39,7 +39,11 @@ function(kObject, is) {
 		bind:	function(ev, callback, context) {
 			var events, i, count;
 
-			if(!ev || !callback) return false;
+			// We need an event and the callback should be a string or a function
+			if(!ev || !(is(callback, "function") || is(callback, "string"))) return false;
+
+			// If the callback is a string, then we must have a context object
+			if(is(callback, "string") && !is(context, "object"))	return false;
 
 			events	=	ev.split(" ");
 
@@ -146,8 +150,9 @@ function(kObject, is) {
 
 			// Loop through the listeners
 			for(i = 0, count = listeners.length; i < count; i++) {
-				// We need a callback function
-				if(!is(listeners[i], "object") || !is(listeners[i].callback, "function"))	continue;
+				// We need a callback function or a callback string and context object
+				if(!is(listeners[i], "object")) continue;
+				if(!(is(listeners[i].callback, "function") || (is(listeners[i].callback, "string") && is(listeners[i].context, "object"))))	continue;
 
 				this._callFunction(listeners[i].callback, args, listeners[i].context);
 			}
@@ -163,6 +168,11 @@ function(kObject, is) {
 		 * depending on this.asyncEvents
 		 */
 		_callFunction: function(fn, args, context) {
+			// A string based fn needs to have an object context
+			if(is(fn, "string") && !is(context, "object"))	return false;
+
+			fn	=	is(fn, "function") ? fn : context[fn];
+
 			if(!this.asyncEvents) {
 				// Sync
 				fn.apply(context, args);

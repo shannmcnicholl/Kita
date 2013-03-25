@@ -110,6 +110,16 @@ function(kObject, PubSub, is)  {
             // Remove listeners
             this._callbacks         =   {};
             this._callbacksLength   =   0;
+        },
+
+
+        /*
+         * toJSON
+         *
+         * Returns a non-referenced version of this.attributes
+         */
+        toJSON: function() {
+            return this.copyProperties({}, this.attributes);
         }
     });
 
